@@ -1,0 +1,406 @@
+/* =========================================================
+   CONFIGURACIÓN GENERAL
+========================================================= */
+
+body {
+    background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+    min-height: 100vh;
+    color: #0f172a;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+/* =========================================================
+   BARRA DE NAVEGACIÓN
+========================================================= */
+
+.navbar {
+    background-color: #ffffff;
+    border-bottom: 1px solid #cbd5e1;
+    min-height: 75px;
+    display: flex;
+    align-items: center;
+}
+
+
+/* =========================================================
+   LOGO DE INVERSIONES GÉNESIS
+========================================================= */
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin-right: 30px;
+    color: #0f172a;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+/* Logo grande y nítido */
+.navbar-logo {
+    width: 160px;
+    height: 65px;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    border-radius: 0;
+}
+
+
+/* =========================================================
+   MENÚ DE NAVEGACIÓN
+========================================================= */
+
+.navbar-nav .nav-link {
+    color: #475569;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.18rem;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus {
+    color: #052F4A;
+}
+
+.navbar-nav .nav-link.active {
+    color: #052F4A;
+}
+
+
+/* Separación entre elementos del menú */
+
+.navbar-nav .nav-item + .nav-item {
+    margin-left: 0.8rem;
+}
+
+
+/* =========================================================
+   ICONOS DE LA NAVEGACIÓN
+========================================================= */
+
+.icon {
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+}
+
+.nav-icon {
+    width: 16px !important;
+    height: 16px !important;
+    object-fit: contain;
+    vertical-align: middle;
+}
+
+
+/* =========================================================
+   BOTONES
+========================================================= */
+
+.btn {
+    border-radius: 999px;
+}
+
+.btn-primary {
+    background-color: #052F4A;
+    border-color: #052F4A;
+    color: #ffffff;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #041f34;
+    border-color: #041f34;
+}
+
+.btn-warning {
+    background-color: #0ea5e9;
+    border-color: #0ea5e9;
+    color: #ffffff;
+}
+
+.btn-warning:hover,
+.btn-warning:focus {
+    background-color: #0284c7;
+    border-color: #0284c7;
+}
+
+.btn-outline-primary {
+    color: #052F4A;
+    border-color: #052F4A;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+    background-color: rgba(5, 47, 74, 0.1);
+}
+
+.btn-outline-secondary {
+    color: #475569;
+    border-color: #cbd5e1;
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus {
+    background-color: rgba(71, 85, 105, 0.08);
+}
+
+.btn-outline-light {
+    color: #0f172a;
+    border-color: #cbd5e1;
+    background-color: #ffffff;
+}
+
+.btn-outline-light:hover,
+.btn-outline-light:focus {
+    background-color: #f1f5f9;
+}
+
+.navbar .btn {
+    margin-left: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.18rem;
+}
+
+
+/* =========================================================
+   TARJETAS
+========================================================= */
+
+.card {
+    border: none;
+    border-radius: 18px;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+}
+
+.card.text-bg-primary,
+.card.text-bg-danger,
+.card.text-bg-success,
+.card.text-bg-secondary {
+    color: #ffffff;
+}
+
+.card.text-bg-primary {
+    background-color: #1E1A4D !important;
+    background-image: none !important;
+    color: #ffffff;
+}
+
+.card.text-bg-primary .card-body {
+    background-color: transparent !important;
+}
+
+.card.text-bg-danger {
+    background-color: #9F0712;
+}
+
+.card.text-bg-success {
+    background-color: #14532d;
+}
+
+.card.text-bg-secondary {
+    background-color: #806763;
+}
+
+.card.shadow-sm {
+    box-shadow: 0 12px 28px rgba(36, 48, 66, 0.08) !important;
+}
+
+
+/* =========================================================
+   FORMULARIOS
+========================================================= */
+
+.form-control {
+    border-radius: 14px;
+    border: 1px solid #dce4ef;
+    text-align: left;
+}
+
+.form-control:focus {
+    border-color: #2364eb;
+    box-shadow: 0 0 0 0.15rem rgba(35, 100, 235, 0.15);
+}
+
+
+/* =========================================================
+   TÍTULOS
+========================================================= */
+
+.page-heading-alt {
+    color: #052F4A;
+    font-family: "Poppins", "Segoe UI", sans-serif;
+    font-size: 1.85rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+}
+
+.page-subheading {
+    color: #052F4A;
+    font-family: "Poppins", "Segoe UI", sans-serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    margin-top: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+h2 {
+    letter-spacing: -0.02em;
+}
+
+
+/* =========================================================
+   LISTAS
+========================================================= */
+
+.list-group {
+    gap: 0.75rem;
+}
+
+.list-group-item {
+    border-radius: 14px !important;
+    margin-bottom: 0;
+    border: 1px solid #e7edf7 !important;
+    background-color: #ffffff;
+    transition: transform 0.15s ease,
+                box-shadow 0.15s ease,
+                background-color 0.15s ease;
+}
+
+.list-group-item:hover {
+    background-color: #f8fbff;
+    transform: translateY(2px);
+}
+
+
+/* =========================================================
+   ALERTAS
+========================================================= */
+
+.alert {
+    border-radius: 16px;
+}
+
+
+/* =========================================================
+   CONTENEDORES
+========================================================= */
+
+.container {
+    max-width: 1140px;
+}
+
+
+/* =========================================================
+   ESPACIADO
+========================================================= */
+
+.navbar-nav:first-child {
+    margin-right: 1cm;
+}
+
+
+/* =========================================================
+   TEXTO DE TARJETAS
+========================================================= */
+
+.card .card-body p,
+.card .card-body h6 {
+    margin-bottom: 0.5rem;
+}
+
+
+/* =========================================================
+   BOTONES REDONDEADOS
+========================================================= */
+
+.btn-rounded {
+    border-radius: 50px;
+}
+
+
+/* =========================================================
+   SCROLLER
+========================================================= */
+
+.nav-scroller {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    max-width: 36ch;
+}
+
+.nav-scroller .scroller {
+    display: flex;
+    gap: 0.25rem;
+    animation: scroll-left 10s linear infinite;
+    white-space: nowrap;
+}
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(-40%);
+    }
+}
+
+
+/* =========================================================
+   DISEÑO RESPONSIVO
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .navbar-logo {
+        width: 140px;
+        height: 60px;
+    }
+
+    .navbar-brand {
+        margin-right: 15px;
+    }
+
+    .navbar-nav:first-child {
+        margin-right: 0;
+    }
+
+    .navbar-nav .nav-item + .nav-item {
+        margin-left: 0;
+    }
+
+    .navbar .btn {
+        margin-top: 10px;
+        margin-left: 0;
+    }
+}
+
+/* =========================================================
+   LOGO DEL LOGIN
+========================================================= */
+
+.login-logo-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.login-logo {
+    width: 300px;
+    height: auto;
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
+}
