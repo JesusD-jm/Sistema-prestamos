@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Registrar pago{% endblock %}
+
+{% block content %}
+<h2 class="mb-3">Registrar pago</h2>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <h5>{{ prestamo.cliente.nombre_completo }}</h5>
+        <p class="mb-1">Monto prestado: <strong>${{ "{:,.0f}".format(prestamo.monto_prestado) }}</strong></p>
+    </div>
+</div>
+
+<form method="POST" class="row g-3" onsubmit="return confirmarPago()">
+    <div class="col-12">
+        <label class="form-label">Monto pagado</label>
+        <input type="number" step="0.01" name="monto_pagado" class="form-control form-control-lg" autofocus>
+    </div>
+    <div class="col-md-6">
+    <label class="form-label">Cantidad de cuotas</label>
+    <input type="number" min="1" name="numero_cuotas_registrar" class="form-control" value="1">
+</div>
+    <div class="col-md-6">
+        <label class="form-label">Rédito / Interés (manual)</label>
+        <input type="number" step="0.01" name="redito" class="form-control" placeholder="0.00">
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Saldo después *</label>
+<input type="number" step="0.01" name="saldo_despues" class="form-control" required placeholder="Escribe el saldo restante">
+    </div>
+    <div class="col-12">
+        <label class="form-label">Notas (opcional)</label>
+        <input type="text" name="notas" class="form-control">
+    </div>
+    <div class="col-12">
+        <button type="submit" id="btnConfirmarPago" class="btn btn-success btn-lg w-100">Confirmar pago</button>
+    </div>
+    <div class="col-12">
+        <a href="{{ url_for('prestamos.detalle', prestamo_id=prestamo.id) }}" class="btn btn-outline-dark btn-lg w-100">Cancelar</a>
+    </div>
+</form>
+
+<script>
+ 
+
+    function confirmarMarcarPagado(form) {
+        const confirmado = confirm('¿Marcar este préstamo como pagado en su totalidad? Esta acción ajustará el estado a pagado.');
+        if (!confirmado) return false;
+        // Desactivar botón para evitar envíos repetidos
+        const btn = form.querySelector('button[type="submit"]');
+        if (btn) {
+            btn.disabled = true;
+            btn.innerText = 'Marcando...';
+        }
+        return true;
+    }
+
+    function confirmarPago() {
+    const monto = document.querySelector('input[name="monto_pagado"]').value;
+
+    const montoFormateado = monto ? Number(monto).toLocaleString("en-US") : "0";
+    const confirmado = confirm(
+        "Vas a registrar un pago de $" + montoFormateado +
+        " para {{ prestamo.cliente.nombre_completo }}.\n\n¿Confirmas que el monto es correcto?"
+    );
+
+    if (!confirmado) {
+        return false;
+    }
+
+    const boton = document.getElementById("btnConfirmarPago");
+    boton.disabled = true;
+    boton.innerText = "Registrando pago...";
+
+    return true;
+    
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Ruta de hoy{% endblock %}
+
+{% block content %}
+<h2 class="mb-1">Ruta de hoy — {{ hoy.strftime('%d/%m/%Y') }}</h2>
+
+{% if prestamos %}
+<p class="text-muted mb-3">
+    {{ prestamos|length }} cliente{{ 'es' if prestamos|length != 1 else '' }} por cobrar —
+    total esperado: <strong>${{ "{:,.0f}".format(total_a_cobrar) }}</strong>
+</p>
+{% else %}
+    <p class="text-muted">No tienes cobros pendientes para hoy.</p>
+{% endif %}
+
+<div class="row g-3">
+    {% for p in prestamos %}
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card {% if p.estado == 'atrasado' %}border-danger{% endif %}">
+            <div class="card-body">
+                <h5 class="card-title">{{ p.cliente.nombre_completo }}</h5>
+                <p class="mb-1 text-muted">{{ p.cliente.telefono or 'Sin teléfono' }}</p>
+                <p class="mb-1 text-muted">{{ p.cliente.direccion or 'Sin dirección' }}</p>
+                <hr>
+                <p class="mb-1"><strong>Cuota:</strong> ${{ "{:,.0f}".format(p.cuota_esperada) }}</p>
+                <p class="mb-2"><strong>Saldo:</strong> ${{ "{:,.0f}".format(p.saldo_actual) }}
+                    {% if p.dias_atraso > 0 %}
+                        <span class="badge bg-danger">{{ p.dias_atraso }} día{{ 's' if p.dias_atraso != 1 else '' }} atrasado</span>
+                    {% endif %}
+                </p>
+                <a href="{{ url_for('pagos.registrar', prestamo_id=p.id) }}" class="btn btn-success w-100">Registrar pago</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

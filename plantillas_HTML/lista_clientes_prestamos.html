@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Clientes{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+    <h2>Clientes y préstamos</h2>
+    <a href="{{ url_for('prestamos.nuevo') }}" class="btn btn-outline-primary"><img src="{{ url_for('static', filename='iconos/plus-circle.png') }}" alt="Nuevo" width="18" height="18" class="me-1"> Nuevo cliente y prestamo</a>
+</div>
+
+<form method="GET" class="mb-4">
+    <div class="input-group">
+        <span class="input-group-text">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zm-5.242 1.05a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
+            </svg>
+        </span>
+        <input type="text" name="q" value="{{ q or '' }}" class="form-control" placeholder="Buscar por nombre o cédula...">
+        {% if estado %}
+        <input type="hidden" name="estado" value="{{ estado }}">
+        {% endif %}
+        <button class="btn btn-primary btn-rounded text-white" type="submit">Buscar</button>
+        <a href="{{ url_for('prestamos.listar') }}" class="btn btn-outline-secondary ms-2">×</a>
+    </div>
+</form>
+
+<div class="list-group">
+    {% for prestamo in prestamos %}
+    <a href="{{ url_for('prestamos.detalle', prestamo_id=prestamo.id) }}" class="list-group-item list-group-item-action">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <strong>{{ prestamo.cliente.nombre_completo }}</strong>
+                <div class="text-muted small">Cédula: {{ prestamo.cliente.cedula }}</div>
+            </div>
+            <span class="badge bg-secondary text-white">{{ prestamo.estado|capitalize }}</span>
+        </div>
+        <div class="d-flex justify-content-between mt-2">
+            <div>
+                <div>Monto prestado: <strong>${{ "{:,.2f}".format(prestamo.monto_prestado) }}</strong></div>
+                <div>Cuota: <strong>${{ "{:,.2f}".format(prestamo.cuota_esperada) }}</strong></div>
+            </div>
+            <div class="text-end">
+                <div>Saldo actual:</div>
+                <strong>${{ "{:,.2f}".format(prestamo.saldo_actual) }}</strong>
+            </div>
+        </div>
+    </a>
+    {% else %}
+    <p class="text-muted">No hay clientes y préstamos registrados aún.</p>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Préstamo #{{ prestamo.id }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+    <h2>{{ prestamo.cliente.nombre_completo }}</h2>
+    <a href="{{ url_for('pagos.registrar', prestamo_id=prestamo.id) }}" class="btn btn-success">Registrar pago</a>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+        <div class="card"><div class="card-body">
+            <h6 class="text-muted">Monto prestado</h6>
+            <p class="fs-5 mb-0">${{ "{:,.0f}".format(prestamo.monto_prestado) }}</p>
+        </div></div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card"><div class="card-body">
+            <h6 class="text-muted">Marcar préstamo</h6>
+            <form method="POST" action="{{ url_for('pagos.registrar', prestamo_id=prestamo.id) }}" class="m-0 p-0" onsubmit="return confirmarMarcarPagado(this)">
+                <input type="hidden" name="marcar_pagado" value="1">
+                <button type="submit" class="btn btn-success w-100">Marcar como pagado</button>
+            </form>
+        </div></div>
+    </div>
+    <div class="col-6 col-md-3">
+    <div class="card"><div class="card-body">
+           <h6 class="text-muted">Cuota a pagar</h6>
+           <p class="fs-5 mb-0">${{ "{:,.0f}".format(prestamo.cuota_esperada) }}</p>
+        </div></div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card"><div class="card-body">
+            <h6 class="text-muted">Estado</h6>
+            <span class="badge bg-{{ 'success' if prestamo.estado == 'pagado' else ('danger' if prestamo.estado == 'atrasado' else 'primary') }}">
+                {{ prestamo.estado }}
+            </span>
+        </div></div>
+    </div>
+</div>
+
+<h4>Historial de pagos</h4>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr><th>Fecha</th><th>Monto</th><th>Saldo después</th><th>Rédito</th></tr>
+        </thead>
+        <tbody>
+            {% for pago in pagos %}
+            <tr>
+                <td>{{ pago.fecha_pago.strftime('%d/%m/%Y %H:%M') }}</td>
+                <td>${{ "{:,.0f}".format(pago.monto_pagado) }}</td>
+                <td>${{ "{:,.0f}".format(pago.saldo_despues) }}</td>
+                <td>{{ "${:,.0f}".format(pago.redito) if pago.redito else "-" }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="4" class="text-muted">Aún no hay pagos registrados.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function confirmarMarcarPagado(form) {
+        const confirmado = confirm('¿Marcar este préstamo como pagado en su totalidad? Esta acción ajustará el estado a pagado.');
+        if (!confirmado) return false;
+
+        const btn = form.querySelector('button[type="submit"]');
+        if (btn) {
+            btn.disabled = true;
+            btn.innerText = 'Marcando...';
+        }
+        return true;
+    }
+</script>
+{% endblock %}
