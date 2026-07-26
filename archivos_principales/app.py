@@ -55,11 +55,25 @@ if __name__ == '__main__':
 
     import threading
     import webbrowser
+    import socket
+    import time
 
-    def abrir_navegador():
+    def servidor_listo():
+        try:
+            sock = socket.create_connection(("127.0.0.1", 5000), timeout=0.2)
+            sock.close()
+            return True
+        except OSError:
+            return False
+
+    def esperar_servidor_y_abrir():
+        intentos = 0
+        while not servidor_listo() and intentos < 50:
+            time.sleep(0.1)
+            intentos = intentos + 1
         webbrowser.open_new("http://127.0.0.1:5000")
 
-    threading.Timer(2, abrir_navegador).start()
+    threading.Thread(target=esperar_servidor_y_abrir, daemon=True).start()
 
     print("Servidor Flask iniciado. Abriendo navegador...")
 
